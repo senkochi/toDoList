@@ -26,6 +26,7 @@
 package controller;
 
 import model.Model;
+import model.Task;
 import view.TaskAdder;
 import view.View;
 
@@ -46,16 +47,27 @@ public class Controller {
             @Override
             public void actionPerformed(ActionEvent e) {
                 taskAdder = new TaskAdder();
-                taskAdder.addSubmitListener(new ActionListener() {
+                taskAdder.addDoneListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-
-                        System.out.println(taskAdder.getTaskName());
+                        String taskName = taskAdder.getTaskName();
+                        LocalTime sTime = taskAdder.getsTime();
+                        LocalTime eTime = taskAdder.geteTime();
+                        String note = taskAdder.getNote();
+                        Task newTask = new Task(taskName,sTime,eTime,note);
+                        model.addTask(newTask);
+                        view.addTaskToUI(newTask);
+                        taskAdder.dispose();
                     }
                 });
             }
         });
-
+        this.view.addDeleteListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.deleteTaskFromUI();
+            }
+        });
     }
 
 }

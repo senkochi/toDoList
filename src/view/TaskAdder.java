@@ -119,15 +119,27 @@ public class TaskAdder extends JFrame {
         return taskNameTextField.getText();
     }
     public LocalTime getsTime(){
-        return sTime;
+        try {
+            return LocalTime.of((Integer) sHourComboBox.getSelectedItem(),
+                    (Integer) sMinuteComboBox.getSelectedItem(),
+                    (Integer) sSecondComboBox.getSelectedItem());
+        } catch (Exception e) {
+            return LocalTime.of(0,0,0);
+        }
     }
     public LocalTime geteTime(){
-        return eTime;
+        try {
+            return LocalTime.of((Integer) eHourComboBox.getSelectedItem(),
+                    (Integer) eMinuteComboBox.getSelectedItem(),
+                    (Integer) eSecondComboBox.getSelectedItem());
+        } catch (Exception e) {
+            return LocalTime.of(0,0,0);
+        }
     }
     public String getNote(){
         return noteTextField.getText();
     }
-    public void addSubmitListener(ActionListener listener){
+    public void addDoneListener(ActionListener listener){
         button.addActionListener(listener);
     }
 }

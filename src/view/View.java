@@ -43,23 +43,31 @@
 
 package view;
 
+import model.Task;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class View extends JFrame {
     private JPanel topPanel;
     private JPanel midPanel;
     private JPanel botPanel;
     private JButton addButton;
+    private JButton deleteButton;
+    private JPanel selected = null;
 
     public View(){
+
         topPanel = new JPanel();
         midPanel = new JPanel();
         botPanel = new JPanel();
 
         addButton = new JButton("Add");
+        deleteButton = new JButton("Delete");
 
         topPanel.setBackground(Color.red);
         midPanel.setBackground(Color.green);
@@ -74,6 +82,7 @@ public class View extends JFrame {
         botPanel.setPreferredSize(new Dimension(50,75));
 
         botPanel.add(addButton);
+        botPanel.add(deleteButton);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(500,600);
@@ -91,5 +100,46 @@ public class View extends JFrame {
     }
     public void addSubmitListener(ActionListener listener){
         addButton.addActionListener(listener);
+    }
+    public void addDeleteListener(ActionListener listener){
+        deleteButton.addActionListener(listener);
+    }
+
+    public void addTaskToUI(Task task){
+        JPanel newTaskPanel = new JPanel();
+        newTaskPanel.setBackground(new Color(255, 105, 180));
+        newTaskPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                newTaskPanel.setBackground(new Color(255, 20, 147));
+                selected = newTaskPanel;
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                newTaskPanel.setBackground(new Color(255, 182, 193));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                newTaskPanel.setBackground(new Color(255, 105, 180));
+            }
+        });
+        newTaskPanel.add(new JLabel(task.getTaskName()));
+        newTaskPanel.add(new JLabel(task.getStartTime()+""));
+        newTaskPanel.add(new JLabel(task.getEndTime()+""));
+        newTaskPanel.add(new JLabel(task.getNote()));
+        midPanel.add(newTaskPanel);
+        midPanel.revalidate();
+        midPanel.repaint();
+
+    }
+    public void deleteTaskFromUI(){
+        if(selected!=null){
+            midPanel.remove(selected);
+            selected = null;
+            midPanel.revalidate();
+            midPanel.repaint();
+        }
     }
 }

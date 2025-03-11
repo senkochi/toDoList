@@ -9,8 +9,8 @@ public class Task {
     private LocalTime endTime;
     private String note;
 
-    public Task(int taskId,String taskName,LocalTime startTime,LocalTime endTime,String note){
-        this.taskId = taskId;
+    public Task(String taskName,LocalTime startTime,LocalTime endTime,String note){
+        //this.taskId = taskId;
         this.taskName = taskName;
         this.startTime = startTime;
         this.endTime = endTime;
