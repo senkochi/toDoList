@@ -18,8 +18,20 @@ public class TaskAdder extends JFrame {
     JLabel taskNameLabel;
     JTextField taskNameTextField;
     JLabel sTimeLabel;
+    JLabel eTimeLabel;
     JTextField noteTextField;
-    String[] time = {"hr", "min", "sec"};
+    JLabel sHourLabel;
+    JLabel sMinuteLabel;
+    JLabel sSecondLabel;
+    JLabel eHourLabel;
+    JLabel eMinuteLabel;
+    JLabel eSecondLabel;
+    JComboBox<Integer> eHourComboBox;
+    JComboBox<Integer> eMinuteComboBox;
+    JComboBox<Integer> eSecondComboBox;
+    JComboBox<Integer> sHourComboBox;
+    JComboBox<Integer> sMinuteComboBox;
+    JComboBox<Integer> sSecondComboBox;
     Integer[] hours = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23};
     Integer[] minutes = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,
                          26,27,28,28,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,
@@ -42,50 +54,47 @@ public class TaskAdder extends JFrame {
         taskNameTextField.setPreferredSize(new Dimension(300,50));
         tNamePanel.add(taskNameLabel);
         tNamePanel.add(taskNameTextField);
-        //Start Time panel
-        sTimeLabel = new JLabel("Start time:");
-        sTimePanel.add(sTimeLabel);
-        for(String text : time){
-            JLabel label = new JLabel(text);
-            JComboBox<Integer> comboBox;
-            if(text.equals("hr")) comboBox = new JComboBox<Integer>(hours);
-            else comboBox = new JComboBox<>(minutes);
-            comboBox.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if(e.getSource()==comboBox){
-                        if(text.equals("hr")){
-                            sArray[0]= (Integer) comboBox.getSelectedItem();
-                        }
-                        else if(text.equals("min")){
-                            sArray[1]= (Integer) comboBox.getSelectedItem();
-                        }
-                        else{
-                            sArray[2]= (Integer) comboBox.getSelectedItem();
-                        }
-                        try {
-                            sTime = LocalTime.of(sArray[0], sArray[1], sArray[2]);
-                        } catch (Exception ex) {
-                            throw new RuntimeException(ex);
-                        }
-                        System.out.println(sTime);
-                    }
-                }
-            });
-            sTimePanel.add(label);
-            sTimePanel.add(comboBox);
-        }
+
+        //Time labels
+        sHourLabel = new JLabel("hour");
+        sMinuteLabel = new JLabel("minute");
+        sSecondLabel = new JLabel("second");
+        eHourLabel = new JLabel("hour");
+        eMinuteLabel = new JLabel("minute");
+        eSecondLabel = new JLabel("second");
 
         //End Time panel
-        JLabel eTimeLabel = new JLabel("End time:");
+        sTimeLabel = new JLabel("End time:");
+        sTimePanel.add(sTimeLabel);
+        //End hour
+        sHourComboBox = new JComboBox<Integer>(hours);
+        sTimePanel.add(sHourLabel);
+        sTimePanel.add(sHourComboBox);
+        //End minute
+        sMinuteComboBox = new JComboBox<Integer>(minutes);
+        sTimePanel.add(sMinuteLabel);
+        sTimePanel.add(sMinuteComboBox);
+        //End second
+        sSecondComboBox = new JComboBox<Integer>(minutes);
+        sTimePanel.add(sSecondLabel);
+        sTimePanel.add(sSecondComboBox);
+
+        //End Time panel
+        eTimeLabel = new JLabel("End time:");
         eTimePanel.add(eTimeLabel);
-        for(String text : time){
-            JLabel label = new JLabel(text);
-            JComboBox<Integer> comboBox = new JComboBox<Integer>(hours);
-            comboBox.addSubmitListener(ActionListener listener);
-            eTimePanel.add(label);
-            eTimePanel.add(comboBox);
-        }
+        //End hour
+        eHourComboBox = new JComboBox<Integer>(hours);
+        eTimePanel.add(eHourLabel);
+        eTimePanel.add(eHourComboBox);
+        //End minute
+        eMinuteComboBox = new JComboBox<Integer>(minutes);
+        eTimePanel.add(eMinuteLabel);
+        eTimePanel.add(eMinuteComboBox);
+        //End second
+        eSecondComboBox = new JComboBox<Integer>(minutes);
+        eTimePanel.add(eSecondLabel);
+        eTimePanel.add(eSecondComboBox);
+
         //Note panel
         notePanel = new JPanel();
         JLabel noteLabel = new JLabel("Note:");
@@ -93,6 +102,7 @@ public class TaskAdder extends JFrame {
         noteTextField.setPreferredSize(new Dimension(300,50));
         notePanel.add(noteLabel);
         notePanel.add(noteTextField);
+
         //Done button
         button = new JButton("Done!");
         button.setBounds(550,225,50,30);
@@ -117,7 +127,7 @@ public class TaskAdder extends JFrame {
     public String getNote(){
         return noteTextField.getText();
     }
-    public void addSubmitListener(){
-
+    public void addSubmitListener(ActionListener listener){
+        button.addActionListener(listener);
     }
 }

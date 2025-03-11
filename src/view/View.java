@@ -60,12 +60,6 @@ public class View extends JFrame {
         botPanel = new JPanel();
 
         addButton = new JButton("Add");
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new TaskAdder();
-            }
-        });
 
         topPanel.setBackground(Color.red);
         midPanel.setBackground(Color.green);
@@ -94,5 +88,8 @@ public class View extends JFrame {
 
     public void addTasks(JPanel task) {
         midPanel.add(task);
+    }
+    public void addSubmitListener(ActionListener listener){
+        addButton.addActionListener(listener);
     }
 }
