@@ -42,9 +42,8 @@
 //}
 
 package view;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import model.Task;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -66,21 +65,32 @@ public class View extends JFrame {
         midPanel = new JPanel();
         botPanel = new JPanel();
 
+        //Add button
         addButton = new JButton("Add");
+        addButton.setBackground(new Color(252, 223, 150));
+        addButton.setPreferredSize(new Dimension(100,50));
+        addButton.setFont(new Font("MV Boli",Font.PLAIN,15));
+        //Delete button
         deleteButton = new JButton("Delete");
+        deleteButton.setBackground(new Color(252, 223, 150));
+        deleteButton.setPreferredSize(new Dimension(100,50));
+        deleteButton.setFont(new Font("MV Boli",Font.PLAIN,15));
 
-        topPanel.setBackground(Color.red);
-        midPanel.setBackground(Color.green);
-        botPanel.setBackground(Color.blue);
+        topPanel.setBackground(new Color(198, 238, 240));
+        midPanel.setBackground(new Color(247, 246, 220));
+        botPanel.setBackground(new Color(38, 88, 90));
         //Top panel
         topPanel.setPreferredSize(new Dimension(50,50));
         JLabel topLabel = new JLabel("To do list");
+        topLabel.setFont(new Font("MV Boli",Font.PLAIN,25));
+        topPanel.setBorder(BorderFactory.createEtchedBorder());
         topPanel.add(topLabel);
         //Mid panel
-
+        midPanel.setBorder(BorderFactory.createEtchedBorder());
+        midPanel.setLayout(new BoxLayout(midPanel,BoxLayout.Y_AXIS));
         //Bot panel
         botPanel.setPreferredSize(new Dimension(50,75));
-
+        botPanel.setBorder(BorderFactory.createEtchedBorder());
         botPanel.add(addButton);
         botPanel.add(deleteButton);
 
@@ -107,24 +117,26 @@ public class View extends JFrame {
 
     public void addTaskToUI(Task task){
         JPanel newTaskPanel = new JPanel();
-        newTaskPanel.setBackground(new Color(255, 105, 180));
+        newTaskPanel.setPreferredSize(new Dimension(400,80));
+        newTaskPanel.setBackground(new Color(138, 188, 190));
         newTaskPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                newTaskPanel.setBackground(new Color(255, 20, 147));
+                newTaskPanel.setBackground(new Color(78, 128, 130));
                 selected = newTaskPanel;
             }
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                newTaskPanel.setBackground(new Color(255, 182, 193));
+                newTaskPanel.setBackground(new Color(108, 158, 160));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                newTaskPanel.setBackground(new Color(255, 105, 180));
+                newTaskPanel.setBackground(new Color(138, 188, 190));
             }
         });
+        newTaskPanel.setBorder(BorderFactory.createEtchedBorder());
         newTaskPanel.add(new JLabel(task.getTaskName()));
         newTaskPanel.add(new JLabel(task.getStartTime()+""));
         newTaskPanel.add(new JLabel(task.getEndTime()+""));

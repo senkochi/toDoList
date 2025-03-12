@@ -45,7 +45,7 @@ public class TaskAdder extends JFrame {
         eTimePanel = new JPanel();
         eTimePanel.setBackground(Color.yellow);
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(400,400);
         this.setLayout(new GridLayout(5,1));
         //Input task name
